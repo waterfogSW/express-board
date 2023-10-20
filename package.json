@@ -5,7 +5,7 @@
   "author": "San Kim <waterfog9580@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec ts-node src/app.ts"
+    "start": "nodemon --exec ts-node src/server.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -17,6 +17,7 @@
     "nodemon": "^3.0.1",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
