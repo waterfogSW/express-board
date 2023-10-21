@@ -1,7 +1,7 @@
 {
-  "name": "express-board",
+  "name": "express-ioc",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bootstrap.ts",
   "author": "San Kim <waterfog9580@gmail.com>",
   "license": "MIT",
   "scripts": {
