@@ -1,10 +1,10 @@
-import { container } from "../util/ioc.container";
-import { Constructor } from "../type/constructor.type";
+import { container } from '../util/ioc.container';
+import { type Constructor } from '../type/constructor.type';
 
-function Injectable() {
+function Injectable () {
   return function (target: Constructor<any>) {
     container.register(target.name, target);
   };
 }
 
-export { Injectable }
+export { Injectable };
