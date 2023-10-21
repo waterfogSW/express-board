@@ -1,20 +1,20 @@
 import express, { Application as ExApplication, Handler, json, Router, urlencoded } from 'express';
-import { MetadataKeys } from "./common/util/metadata.keys";
+import { MetadataKeys } from "./common/constant/metadata.keys";
 import { IRouter } from "./common/decorator/handler.decorator";
 import { controllers } from "./controller";
 import cors from "cors";
 import morgan from "morgan";
-import { configDotenv } from "dotenv";
+import { Container } from "./common/util/ioc.container";
+import * as http from "http";
 
 
-class Application {
-  private readonly _instance: ExApplication;
+export class Application {
 
-  constructor() {
-    configDotenv();
-    this._instance = express();
+  constructor(
+    private readonly _instance: ExApplication,
+    private readonly container: Container,
+  ) {
     this.registerRouters();
-
     this._instance.use(express.json());
     this._instance.use(cors());
     this._instance.use(json());
@@ -22,18 +22,17 @@ class Application {
     this._instance.use(morgan(process.env.MORGAN_FORMAT || 'dev'));
   }
 
-  get instance(): ExApplication {
-    return this._instance;
+  public createServer(): http.Server {
+    return http.createServer(this._instance)
   }
 
   private registerRouters() {
     if (controllers.length === 0) {
-      console.log("No controllers found");
-      return;
+      throw new Error('No controllers found');
     }
 
     controllers.forEach((controllerClass) => {
-      const controllerInstance: { [handleName: string]: Handler } = new controllerClass() as any;
+      const controllerInstance: { [handleName: string]: Handler } = this.container.resolve(controllerClass.name) as any;
       const basePath: string = Reflect.getMetadata(MetadataKeys.BASE_PATH, controllerClass);
       const routers: IRouter[] = Reflect.getMetadata(MetadataKeys.ROUTERS, controllerClass);
       const exRouter: Router = express.Router();
@@ -46,5 +45,3 @@ class Application {
     });
   }
 }
-
-export default new Application();

@@ -1,4 +1,4 @@
-import { MetadataKeys } from '../util/metadata.keys';
+import { MetadataKeys } from '../constant/metadata.keys';
 
 export enum Methods {
   GET = 'get',

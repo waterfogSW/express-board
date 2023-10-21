@@ -1,4 +1,4 @@
-import { MetadataKeys } from '../util/metadata.keys';
+import { MetadataKeys } from '../constant/metadata.keys';
 const Controller = (basePath: string): ClassDecorator => {
   return (target) => {
     Reflect.defineMetadata(MetadataKeys.BASE_PATH, basePath, target);
