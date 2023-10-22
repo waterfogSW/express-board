@@ -24,5 +24,7 @@ module.exports = {
     "rules": {
         "semi": ["error", "always"],
         "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/space-before-function-paren": ["error", "never"],
+        "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
     }
 }
